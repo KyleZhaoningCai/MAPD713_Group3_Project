@@ -5,11 +5,8 @@
     "main": "index.js",
     "author": "Group 3",
     "dependencies": {
-        "mongodb": "^3.3.4",
+        "bcrypt": "^3.0.7",
         "mongoose": "^5.7.7",
         "restify": "8.4.0"
-    },
-    "scripts": {
-		"start": "node index.js"
-	}
+    }
 }
