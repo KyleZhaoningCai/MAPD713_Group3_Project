@@ -45,6 +45,9 @@ server.post('/patients', addNewPatient);
 // PUT request for patients
 server.put('/patients/:id', editPatient);
 
+// DELETE request for patients
+server.del('/patients/:id', deletePatient);
+
 //GET request for patient records
 server.get('/patients/records', getPatientRecords);
 
@@ -156,6 +159,17 @@ function addNewPatient(req, res, next) {
             res.json(newPatient);
         }
     });
+}
+
+function deletePatient(req, res, next){
+    Patient.findOneAndDelete( req.params.id, function (err) {
+        if (err) {
+            return next(err);
+        } else {
+            res.json(req.params.id);
+        }
+    });
+
 }
 
 function addNewRecord(req, res, next) {
