@@ -162,7 +162,7 @@ function addNewPatient(req, res, next) {
 }
 
 function deletePatient(req, res, next){
-    Patient.findOneAndDelete( req.params.id, function (err) {
+    Patient.findOneAndDelete( {_id: req.params.id}, function (err) {
         if (err) {
             return next(err);
         } else {
