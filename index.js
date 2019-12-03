@@ -52,10 +52,10 @@ server.get('/patients/records', getPatientRecords);
 server.get('/patients/:id/records', findRecordByPatientId);
 
 //POST request for patient records
-server.post('/patients/records', addNewRecord);
+server.post('/patients/:id/records', addNewRecord);
 
 //PUT request for patient records
-server.put('/patients/records/:id', editPatientRecord);
+server.put('/patients/:patientId/records/:id', editPatientRecord);
 
 //PUT request to flag critical patients
 server.put('/patients/:id/:isCritical', flagCriticalPatient);
@@ -159,6 +159,7 @@ function addNewPatient(req, res, next) {
 }
 
 function addNewRecord(req, res, next) {
+    req.body.patient_id = req.params.id;
     var newRecord = new Record(req.body);
     // Use the 'Patient' instance's 'save' method to save a new patient information
     newRecord.save(function (err) {
