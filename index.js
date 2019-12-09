@@ -60,6 +60,9 @@ server.post('/patients/:id/records', addNewRecord);
 // DELETE request for all records of a patient
 server.del('/patients/:id/records', deletePatientRecords);
 
+//GET request for patient records
+server.get('/patients/:patientId/records/:id', getOnePatientRecord);
+
 //PUT request for patient records
 server.put('/patients/:patientId/records/:id', editPatientRecord);
 
@@ -254,6 +257,17 @@ function findPatientById(req, res, next) {
         }
     });
 }
+
+function getOnePatientRecord(req, res, next) {
+    Record.findById( req.params.id, function (err, records) {
+        if (err) {
+            return next(err);
+        } else {
+            res.json(records);
+        }
+    });
+}
+
 
 function findRecordByPatientId(req, res, next) {
     Record.find( { patient_id: req.params.id }, function (err, records) {
