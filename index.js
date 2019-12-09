@@ -57,8 +57,14 @@ server.get('/patients/:id/records', findRecordByPatientId);
 //POST request for patient records
 server.post('/patients/:id/records', addNewRecord);
 
+// DELETE request for all records of a patient
+server.del('/patients/:id/records', deletePatientRecords);
+
 //PUT request for patient records
 server.put('/patients/:patientId/records/:id', editPatientRecord);
+
+// DELETE request for patients
+server.del('/patients/:patientId/records/:id', deleteRecord);
 
 //PUT request to flag critical patients
 server.put('/patients/:id/:isCritical', flagCriticalPatient);
@@ -170,6 +176,28 @@ function deletePatient(req, res, next){
         }
     });
 
+}
+
+function deletePatientRecords(req, res, next){
+    Record.deleteMany({ patient_id: req.params.id}, function (err) {
+        if (err){
+            return next(err);
+        }
+        else{
+            res.json(req.params.id);
+        }
+    });
+}
+
+function deleteRecord(req, res, next){
+    Record.findOneAndDelete({ _id: req.params.id}, function (err) {
+        if (err){
+            return next(err);
+        }
+        else{
+            res.json(req.params.id);
+        }
+    });
 }
 
 function addNewRecord(req, res, next) {
